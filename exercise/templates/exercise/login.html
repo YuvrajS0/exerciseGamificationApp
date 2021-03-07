@@ -1,17 +1,29 @@
 {% load socialaccount %}
+<!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="../../static/exercise/styles.css">
     <title>Google Registration</title>
   </head>
+  
   <body>
-  <h1>My Google Login Project</h1>
+  <h1>Welcome to Work4It</h1>
+  
   {% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }}!</p>
+  <h2>So glad you could join us on this epic adventure {{ user.username }}!</h2>
  
+  <button><a href="{% url 'account_logout' %}">Log Out</a></button>
   {% else %}
   <!-- <h1>My Google Login Project</h1> -->
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
+  <button><a href="{% provider_login_url 'google' %}">Log in</a></button>
   {% endif %}
+  
+  <footer >
+    <div>
+      <span>UVA CS3240: Group A-17 --- Published March 2021</span>
+    </div>
+  </footer>
+
 
   </body>
 </html>
