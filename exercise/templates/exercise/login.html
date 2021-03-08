@@ -11,6 +11,7 @@
   
   {% if user.is_authenticated %}
   <h2>So glad you could join us on this epic adventure {{ user.username }}!</h2>
+  <h2>The email you are currently logged in with is: {{ user.email }}.</h2>
  
   <button><a href="{% url 'account_logout' %}">Log Out</a></button>
   {% else %}
