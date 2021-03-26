@@ -1,0 +1,193 @@
+{% load socialaccount %}
+<!DOCTYPE HTML>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Work4It</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../../static/exercise/assets/css/main.css" />
+	</head>
+	<body>
+
+		{% if user.is_authenticated %} <!-- AUTHENTICATED USER-->
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="{% url 'exercise:dashboard' %}">Dashboard</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'exercise:home' %}">Home</a></li>
+					<li><a href="{% url 'exercise:dashboard' %}">Dashboard</a></li>
+					<li><a href="{% url 'account_logout' %}?next=/exercise">Logout</a></li>
+				</ul>
+			</nav>
+			{% else %} <!-- UN AUTHENTICATED USER-->
+			<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="{% url 'exercise:home' %}">Work4It <span>by A-17</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'exercise:home' %}">Home</a></li>
+					<li><a href="{% provider_login_url 'google' %}?next=/exercise">Login</a></li>
+				</ul>
+			</nav>
+			{% endif %}
+
+		<!-- One -->
+			<section id="One" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<p>This is your exercise dashboard</p>
+						<h2>{{ user.username }}</h2>
+					</header>
+				</div>
+			</section>
+		<!-- FORM FOR WORKOUT INPUT -->
+   <section id="Two" class="wrapper style2">
+	<div class="inner" style="margin:auto;">
+	  <h3>Create New Workout</h3>
+		<form method="post" action="#">
+			<div class="row uniform">
+				<!-- TITLE OF WORKOUT -->
+				<div class="6u 12u$(xsmall)">
+					<input type="text" name="title" id="title" value="" placeholder="Title" />
+				</div>
+				<!-- DATE -->
+				<div class="6u$ 12u$(xsmall)">
+					<input type="date" name="date" id="date" value="" />
+				</div>
+				<!-- START TIME -->
+				<div class="6u 12u$(xsmall)">
+					<p>Start Time</p>
+					<input type="time" name="start_time" id="title" value="" />
+				</div>
+				<!-- END TIME -->
+				<div class="6u 12u$(xsmall)">
+					<p>End Time</p>
+					<input type="time" name="end_time" id="title" value="" />
+				</div>
+				<div class="12u$">
+					<div class="select-wrapper">
+						<select name="category" id="category">
+							<option value="">- Category -</option>
+							<option value="1">Manufacturing</option>
+							<option value="1">Shipping</option>
+							<option value="1">Administration</option>
+							<option value="1">Human Resources</option>
+						</select>
+					</div>
+				</div>
+				<!-- WORKOUT DESCRIPTION -->
+				<div class="12u$">
+					<textarea name="message" id="message" placeholder="Enter description" rows="6"></textarea>
+				</div>
+				<!-- Break -->
+				<div class="12u$">
+					<ul class="actions">
+						<li><input type="submit" value="Save" /></li>
+					</ul>
+				</div>
+			</div>
+		</form>
+	   <div>
+	</section>
+		<!-- END OF FORM FOR WORKOUT INPUT -->
+
+		<!-- DISPLAY WORKOUTS -->
+			<section id="three" class="wrapper style4">
+				<div class="inner">
+					<div class="box">
+						<div class="content">
+							<header class="align-center">
+								<p>View all your workouts here</p>
+								<h2>Workout Log</h2>
+							</header>
+							<h3>Workouts</h3>
+								<div class="table-wrapper">
+									<table>
+										<thead>
+											<tr>
+												<th>Title</th>
+												<th>Description</th>
+												<th>Points</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Item 1</td>
+												<td>Ante turpis integer aliquet porttitor.</td>
+												<td>29.99</td>
+												<td>3/26/2021</td>
+											</tr>
+											<tr>
+												<td>Item 2</td>
+												<td>Vis ac commodo adipiscing arcu aliquet.</td>
+												<td>19.99</td>
+												<td>3/26/2021</td>
+											</tr>
+											<tr>
+												<td>Item 3</td>
+												<td> Morbi faucibus arcu accumsan lorem.</td>
+												<td>29.99</td>
+												<td>3/26/2021</td>
+											</tr>
+											<tr>
+												<td>Item 4</td>
+												<td>Vitae integer tempus condimentum.</td>
+												<td>19.99</td>
+												<td>3/26/2021</td>
+											</tr>
+											<tr>
+												<td>Item 5</td>
+												<td>Ante turpis integer aliquet porttitor.</td>
+												<td>29.99</td>
+												<td>3/26/2021</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		<!-- TOTAL POINTS AND LEVEL -->
+		<section id="five" class="wrapper style3">
+			<div class="inner">
+					<div class="content">
+						<header class="align-center">
+							<h2>Total Points: ----</h2>
+							<h3>Level: ----</h3>
+						</header>
+		</section>
+		<!-- Footer -->
+		<footer id="footer">
+			<div class="copyright">
+				UVA CS3240: Group A-17 --- Published March 2021
+			</div>
+			<div class="copyright">
+				&copy; Untitled. All rights reserved.
+			</div>
+		</footer>
+
+		<!-- Scripts -->
+			<script src="../../static/exercise/assets/js/jquery.min.js"></script>
+			<script src="../../static/exercise/assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../static/exercise/assets/js/skel.min.js"></script>
+			<script src="../../static/exercise/assets/js/util.js"></script>
+			<script src="../../static/exercise/assets/js/main.js"></script>
+
+	</body>
+</html>
