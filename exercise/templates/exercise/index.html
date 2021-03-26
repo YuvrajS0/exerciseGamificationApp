@@ -1,0 +1,162 @@
+{% load socialaccount %}
+<!DOCTYPE HTML>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Work4It</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../../static/exercise/assets/css/main.css" />
+	</head>
+	<body>
+		{% if user.is_authenticated %} <!-- AUTHENTICATED USER-->
+		<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="{% url 'exercise:home' %}">Welcome <span>{{ user.username }}</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'exercise:home' %}">Home</a></li>
+					<li><a href="{% url 'exercise:dashboard' %}">Dashboard</a></li>
+					<li><a href="{% url 'account_logout'%}?next=/exercise">Logout</a></li>
+				</ul>
+			</nav>
+			{% else %} <!-- UN AUTHENTICATED USER-->
+			<!-- Header -->
+			<header id="header" class="alt">
+				<div class="logo"><a href="{% url 'exercise:home' %}">Work4It <span>by A-17</span></a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="{% url 'exercise:home' %}">Home</a></li>
+					<li><a href="{% provider_login_url 'google' %}?next=/exercise">Login</a></li>
+				</ul>
+			</nav>
+			{% endif %}
+
+		<!-- Banner -->
+			<section class="banner full">
+				<article>
+					<img src="../../static/exercise/images/slide01.jpeg" alt="" />
+					<div class="inner">
+						<header>
+							<p>An Exercise Gamification App</p>
+							<h2>Work4It</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="../../static/exercise/images/slide03.jpeg" alt="" />
+					<div class="inner">
+						<header>
+							<p>Earn points through workout inputs</p>
+							<h2>Point Based Progression</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="../../static/exercise/images/slide02.jpeg"  alt="" />
+					<div class="inner">
+						<header>
+							<p>Level up as you complete more workouts</p>
+							<h2>Tier System</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="../../static/exercise/images/slide04.jpeg"  alt="" />
+					<div class="inner">
+						<header>
+							<p>See how you rank compared to other users</p>
+							<h2>Leaderboards</h2>
+						</header>
+					</div>
+				</article>
+				<article>
+					<img src="../../static/exercise/images/slide05.jpeg"  alt="" />
+					<div class="inner">
+						<header>
+							<p>An elegant approach to workouts</p>
+							<h2>Group A-17</h2>
+						</header>
+					</div>
+				</article>
+			</section>
+
+		<!-- ABOUT US -->
+		<section id="three" class="wrapper style2">
+			<div class="inner">
+				<header class="align-center">
+					<p class="special">Meet the creators of Work4It</p>
+					<h2>About Us</h2>
+				</header>
+				<div class="gallery">
+					<div>
+						<div class="image fit">
+							<img src="../../static/exercise/images/yuvraj.jpg" alt="YUVRAJ SREEPATHI" />
+							<header class="align-center">
+								<p class="special" style="padding:25px;">Scrum Master</p>
+								<h2>Yuvraj Sreepathi</h2>
+							</header>
+						</div>
+					</div>
+					<div>
+						<div class="image fit">
+							<a href="#"><img src="../../static/exercise/images/blank.jpg" alt="JADEN KYLER-WANK" /></a>
+							<header class="align-center">
+								<p class="special" style="padding:25px;">Requirements Manager</p>
+								<h2>Jaden Kyler-Wank</h2>
+							</header>
+						</div>
+					</div>
+					<div>
+						<div class="image fit">
+							<a href="#"><img src="../../static/exercise/images/blank.jpg" alt="ZHIJUN CAO" /></a>
+							<header class="align-center">
+								<p class="special" style="padding:25px;">DevOps Manager</p>
+								<h2>Zhijun Cao</h2>
+							</header>
+						</div>
+					</div>
+					<div>
+						<div class="image fit">
+							<a href="#"><img src="../../static/exercise/images/blank.jpg" alt="PIERSON SHAMAIENGAR" /></a>
+							<header class="align-center">
+								<p class="special" style="padding:25px;">Testing Manager</p>
+								<h2>Pierson Shamaienger</h2>
+							</header>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					UVA CS3240: Group A-17 --- Published March 2021
+				</div>
+				<div class="copyright">
+					&copy; Untitled. All rights reserved.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../../static/exercise/assets/js/jquery.min.js"></script>
+			<script src="../../static/exercise/assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../static/exercise/assets/js/skel.min.js"></script>
+			<script src="../../static/exercise/assets/js/util.js"></script>
+			<script src="../../static/exercise/assets/js/main.js"></script>
+
+	</body>
+</html>
