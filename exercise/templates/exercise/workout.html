@@ -17,7 +17,7 @@
 		{% if user.is_authenticated %} <!-- AUTHENTICATED USER-->
 		<!-- Header -->
 			<header id="header" class="alt">
-				<div class="logo"><a href="{% url 'exercise:dashboard' %}">New Workout</a></div>
+				<div class="logo"><a href="{% url 'exercise:workout' %}">New Workout</a></div>
 				<a href="#menu">Menu</a>
 			</header>
 
@@ -64,25 +64,25 @@
 			<div class="row uniform">
 				<!-- TITLE OF WORKOUT -->
 				<div class="6u 12u$(xsmall)">
-					<input type="text" name="workout_title" id="workout_title" value="" placeholder="Title" />
+					<input type="text" name="workout_title" id="workout_title" value="" placeholder="Title" required/>
 				</div>
 				<!-- DATE -->
 				<div class="6u$ 12u$(xsmall)">
-					<input type="date" name="workout_pub_date" id="workout_pub_date" value="" />
+					<input type="date" name="workout_pub_date" id="workout_pub_date" value="" required/>
 				</div>
 				<!-- START TIME -->
 				<div class="6u 12u$(xsmall)">
 					<p>Start Time</p>
-					<input type="time" name="workout_start_time" id="workout_start_time" value="" />
+					<input type="time" name="workout_start_time" id="workout_start_time" value="" required/>
 				</div>
 				<!-- END TIME -->
 				<div class="6u 12u$(xsmall)">
 					<p>End Time</p>
-					<input type="time" name="workout_end_time" id="workout_end_time" value="" />
+					<input type="time" name="workout_end_time" id="workout_end_time" value="" required/>
 				</div>
 				<!-- WORKOUT DESCRIPTION -->
 				<div class="12u$">
-					<textarea name="workout_description" id="workout_description" placeholder="Enter description" rows="6"></textarea>
+					<textarea name="workout_description" id="workout_description" placeholder="Enter description" rows="6"></textarea required>
 				</div>
 				<!-- Break -->
 				<div class="12u$">

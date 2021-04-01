@@ -19,7 +19,7 @@ from django.views.generic import TemplateView
 from exercise import views
 
 urlpatterns = [
-    path('exercise/', include('exercise.urls')),
+    path('', include('exercise.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
 ]
