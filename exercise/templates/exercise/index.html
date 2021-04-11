@@ -26,7 +26,8 @@
 					<li><a href="{% url 'exercise:home' %}">Home</a></li>
 					<li><a href="{% url 'exercise:workout' %}">Add Workout</a></li>
 					<li><a href="{% url 'exercise:dashboard' %}">Dashboard</a></li>
-					<li><a href="{% url 'account_logout'%}?next=/exercise">Logout</a></li>
+					<li><a href="{% url 'exercise:leaderboard' %}">Leaderboard</a></li>
+					<li><a href="{% url 'account_logout'%}?next=/">Logout</a></li>
 				</ul>
 			</nav>
 			{% else %} <!-- UN AUTHENTICATED USER-->
@@ -40,7 +41,7 @@
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="{% url 'exercise:home' %}">Home</a></li>
-					<li><a href="{% provider_login_url 'google' %}?next=/exercise">Login</a></li>
+					<li><a href="{% provider_login_url 'google' %}?next=/dashboard">Login</a></li>
 				</ul>
 			</nav>
 			{% endif %}
@@ -113,7 +114,7 @@
 					</div>
 					<div>
 						<div class="image fit">
-							<a href="#"><img src="../../static/exercise/images/blank.jpg" alt="JADEN KYLER-WANK" /></a>
+							<a href="#"><img src="../../static/exercise/images/jaden.jpg" alt="JADEN KYLER-WANK" /></a>
 							<header class="align-center">
 								<p class="special" style="padding:25px;">Requirements Manager</p>
 								<h2>Jaden Kyler-Wank</h2>

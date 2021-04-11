@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 
 class Workout(models.Model):
@@ -12,7 +13,8 @@ class Workout(models.Model):
     workout_start_time = models.TimeField(default = timezone.now)
     workout_end_time = models.TimeField(default = timezone.now)
     workout_description = models.TextField()
-    workout_points = models.IntegerField(default = 0)
+    workout_points = models.IntegerField(default=0)
     # total_points = models.IntegerField(default = 0)
     def __str__(self):
         return self.workout_title
+

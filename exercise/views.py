@@ -4,7 +4,11 @@ from django.urls import reverse
 from django.views import generic
 from django.views import View
 from .models import Workout
+from .forms import WorkoutForm
 from django.utils import timezone
+import datetime
+from django.contrib.auth.models import User
+import operator
 
 
 def index(request):
@@ -12,7 +16,10 @@ def index(request):
 
 def workout(request):
     render(request, 'exercise/index.html')
+    #context = {}
     if request.method == 'POST':
+        #form = WorkoutForm(request.POST)
+        #if form.is_valid():
         workout=Workout()
         workout.user = request.user
         workout.workout_title= request.POST.get('workout_title')
@@ -20,11 +27,49 @@ def workout(request):
         workout.workout_start_time = request.POST.get('workout_start_time')
         workout.workout_end_time = request.POST.get('workout_end_time')
         workout.workout_description = request.POST.get('workout_description')
-        workout.save()        
-    return render(request, 'exercise/workout.html')  
+        '''
+        I know this way of calculating points is super wack, but honestly I was trying for
+        3 hours to convert this into a form and nothing was working, so this should be good for now
+        '''
+        starttime = int((str(workout.workout_start_time))[0:2] + (str(workout.workout_start_time))[3:5])
+        endtime = int((str(workout.workout_end_time))[0:2] + (str(workout.workout_end_time))[3:5])
+        if(endtime < starttime):
+            workout.workout_points = starttime-endtime
+        elif(endtime > starttime):
+            workout.workout_points = endtime-starttime
+        else:
+            workout.workout_points = 0
+        workout.save()
+    return render(request, 'exercise/workout.html')
 
 def workouts(request):
     render(request, 'exercise/index.html')
     workout_dict = Workout.objects.filter(user=request.user)
-    return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict})
+    totalpoints = 0
+    for w in workout_dict:
+        totalpoints += w.workout_points
+    return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict, 'totalpoints':totalpoints})
+
+def leaderboardView(request):
+    render(request, 'exercise/index.html')
+    all_users = User.objects.all()
+    leaderboard = {}
+    totalpoints = 0
+    for currentuser in all_users: # loop through all users
+        userworkouts = Workout.objects.filter(user=currentuser) # grab all workouts for current user
+        for workout in userworkouts: # for all currentuser's workouts
+            totalpoints += workout.workout_points # add points to totalpoints
+        leaderboard[currentuser.username] = totalpoints
+        totalpoints = 0
+    sortedboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True) # sort the leaderboard by decreasing total points
+
+    workout_dict = Workout.objects.filter(user=request.user)
+    totalpoints = 0
+    for w in workout_dict:
+        totalpoints += w.workout_points
+    return render(request, 'exercise/leaderboard.html', {'leaderboard':sortedboard, 'totalpoints':totalpoints})
+
+
+
+
 
