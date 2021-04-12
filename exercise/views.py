@@ -14,7 +14,7 @@ import operator
 def index(request):
     return render(request, 'exercise/index.html')
 
-def workout(request):
+def addWorkout(request):
     render(request, 'exercise/index.html')
     #context = {}
     if request.method == 'POST':
@@ -42,32 +42,46 @@ def workout(request):
         workout.save()
     return render(request, 'exercise/workout.html')
 
-def workouts(request):
+def dashboardView(request):
     render(request, 'exercise/index.html')
     workout_dict = Workout.objects.filter(user=request.user)
     totalpoints = 0
     for w in workout_dict:
         totalpoints += w.workout_points
-    return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict, 'totalpoints':totalpoints})
+    level = calcLevel(totalpoints)
+    return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict, 'totalpoints':totalpoints, 'level':level})
 
 def leaderboardView(request):
     render(request, 'exercise/index.html')
     all_users = User.objects.all()
     leaderboard = {}
     totalpoints = 0
+    i = 0
     for currentuser in all_users: # loop through all users
-        userworkouts = Workout.objects.filter(user=currentuser) # grab all workouts for current user
-        for workout in userworkouts: # for all currentuser's workouts
-            totalpoints += workout.workout_points # add points to totalpoints
-        leaderboard[currentuser.username] = totalpoints
-        totalpoints = 0
-    sortedboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True) # sort the leaderboard by decreasing total points
+        if(i < 10):
+            userworkouts = Workout.objects.filter(user=currentuser) # grab all workouts for current user
+            for workout in userworkouts: # for all currentuser's workouts
+                totalpoints += workout.workout_points # add points to totalpoints
+            leaderboard[currentuser.username] = totalpoints
+            totalpoints = 0
+            i+=1
+    sortedboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True) # sort the leaderboard by descending total points
 
-    workout_dict = Workout.objects.filter(user=request.user)
-    totalpoints = 0
-    for w in workout_dict:
-        totalpoints += w.workout_points
-    return render(request, 'exercise/leaderboard.html', {'leaderboard':sortedboard, 'totalpoints':totalpoints})
+    if(request.user.is_authenticated):
+        workout_dict = Workout.objects.filter(user=request.user)
+        totalpoints = 0
+        for w in workout_dict:
+            totalpoints += w.workout_points
+    level = calcLevel(totalpoints)
+
+    return render(request, 'exercise/leaderboard.html', {'leaderboard':sortedboard[0:10], 'totalpoints':totalpoints, 'level':level})
+
+def calcLevel(points): # calculate the user's level based on increments of 500 points
+    level = 1
+    while(points > 0):
+        points -= 500
+        level+=1
+    return level
 
 
 
