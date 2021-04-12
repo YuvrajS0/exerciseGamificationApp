@@ -38,7 +38,7 @@ def addWorkout(request):
         elif(endtime > starttime):
             workout.workout_points = endtime-starttime
         else:
-            workout.workout_points = 0
+            workout.workout_points = 0 # they worked out for a full day??
         workout.save()
     return render(request, 'exercise/workout.html')
 
@@ -58,13 +58,11 @@ def leaderboardView(request):
     totalpoints = 0
     i = 0
     for currentuser in all_users: # loop through all users
-        if(i < 10):
-            userworkouts = Workout.objects.filter(user=currentuser) # grab all workouts for current user
-            for workout in userworkouts: # for all currentuser's workouts
-                totalpoints += workout.workout_points # add points to totalpoints
-            leaderboard[currentuser.username] = totalpoints
-            totalpoints = 0
-            i+=1
+        userworkouts = Workout.objects.filter(user=currentuser) # grab all workouts for current user
+        for workout in userworkouts: # for all currentuser's workouts
+            totalpoints += workout.workout_points # add points to totalpoints
+        leaderboard[currentuser.username] = totalpoints
+        totalpoints = 0
     sortedboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True) # sort the leaderboard by descending total points
 
     if(request.user.is_authenticated):
@@ -77,7 +75,9 @@ def leaderboardView(request):
     return render(request, 'exercise/leaderboard.html', {'leaderboard':sortedboard[0:10], 'totalpoints':totalpoints, 'level':level})
 
 def calcLevel(points): # calculate the user's level based on increments of 500 points
-    level = 1
+    if(points == 0):
+        return 1
+    level = 0
     while(points > 0):
         points -= 500
         level+=1
