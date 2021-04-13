@@ -6,6 +6,7 @@ app_name = 'exercise'
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('dashboard/', views.workouts, name='dashboard'),
-    path('workout/', views.workout, name='workout'),
+    path('dashboard/', views.dashboardView, name='dashboard'),
+    path('workout/', views.addWorkout, name='workout'),
+    path('leaderboard/', views.leaderboardView, name='leaderboard'),
 ]

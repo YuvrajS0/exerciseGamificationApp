@@ -27,7 +27,8 @@
 					<li><a href="{% url 'exercise:home' %}">Home</a></li>
 					<li><a href="{% url 'exercise:workout' %}">Add Workout</a></li>
 					<li><a href="{% url 'exercise:dashboard' %}">Dashboard</a></li>
-					<li><a href="{% url 'account_logout' %}?next=/exercise">Logout</a></li>
+					<li><a href="{% url 'exercise:leaderboard' %}">Leaderboard</a></li>
+					<li><a href="{% url 'account_logout' %}?next=/">Logout</a></li>
 				</ul>
 			</nav>
 			{% else %} <!-- UN AUTHENTICATED USER-->
@@ -41,7 +42,7 @@
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="{% url 'exercise:home' %}">Home</a></li>
-					<li><a href="{% provider_login_url 'google' %}?next=/exercise">Login</a></li>
+					<li><a href="{% provider_login_url 'google' %}?next=/dashboard">Login</a></li>
 				</ul>
 			</nav>
 			{% endif %}
@@ -86,7 +87,7 @@
 												<td>{{ w.workout_points}}</td>
 												<td>{{ w.workout_start_time}}</td>
 												<td>{{ w.workout_end_time}}</td>
-												<td>{{ w.workout_pub_date }}/td>
+												<td>{{ w.workout_pub_date }}</td>
 											</tr>
 											{% endfor %}
 										</tbody>
@@ -101,8 +102,8 @@
 			<div class="inner">
 					<div class="content">
 						<header class="align-center">
-							<h2>Total Points: ----</h2>
-							<h3>Level: ----</h3>
+							<h2>Total Points: {{totalpoints}}</h2>
+							<h3>Level: {{level}}</h3>
 						</header>
 		</section>
 		<!-- Footer -->
