@@ -88,10 +88,13 @@
 				<!-- Break -->
 				<div class="12u$">
 					<ul class="actions">
-						<li><input type="submit" value="Save" /></li>
+						<li><input type="submit" value="Save"/></li>
 					</ul>
 				</div>
 			</div>
+		</form>
+		<form action="{% url 'exercise:dashboard' %}">
+			<input type="submit" value="View Workouts" />
 		</form>
 	   <div>
 	</section>
