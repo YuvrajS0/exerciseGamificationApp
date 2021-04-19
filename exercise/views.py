@@ -15,7 +15,7 @@ def index(request):
     return render(request, 'exercise/index.html')
 
 def addWorkout(request):
-    render(request, 'exercise/index.html')
+    render(request, 'exercise/workout.html')
     #context = {}
     if request.method == 'POST':
         #form = WorkoutForm(request.POST)
@@ -39,7 +39,7 @@ def addWorkout(request):
             workout.workout_points = endtime-starttime
         else:
             workout.workout_points = 0 # they worked out for a full day??
-        workout.save()
+            workout.save()
     return render(request, 'exercise/workout.html')
 
 def dashboardView(request):

@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class Workout(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     workout_title= models.CharField(max_length=200, default=timezone.now)
-    workout_pub_date = models.DateTimeField(default=datetime.date.today)
+    workout_pub_date = models.DateTimeField()
     workout_start_time = models.TimeField(default = timezone.now)
     workout_end_time = models.TimeField(default = timezone.now)
     workout_description = models.TextField()
