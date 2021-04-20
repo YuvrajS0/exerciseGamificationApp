@@ -39,7 +39,7 @@ def addWorkout(request):
             workout.workout_points = endtime-starttime
         else:
             workout.workout_points = 0 # they worked out for a full day??
-            workout.save()
+        workout.save()
     return render(request, 'exercise/workout.html')
 
 def dashboardView(request):
