@@ -1,0 +1,93 @@
+{% load embed_video_tags %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<!--
+	Hielo by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html lang="en">
+    <head>
+		<title>Work4It</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../../static/exercise/assets/css/main.css" />
+		<link rel="stylesheet" href="../../static/exercise/assets/css/counter.css" />
+	</head>
+  <body>
+    {% if user.is_authenticated %} <!-- AUTHENTICATED USER-->
+    <!-- Header -->
+        <header id="header" class="alt">
+            <div class="logo"><a href="{% url 'exercise:home' %}">Welcome <span>{{ user.username }}</span></a></div>
+            <a href="#menu">Menu</a>
+        </header>
+
+    <!-- Nav -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="{% url 'exercise:home' %}">Home</a></li>
+                <li><a href="{% url 'exercise:video' %}">Instruction Videos</a></li>
+                <li><a href="{% url 'exercise:workout' %}">Add Workout</a></li>
+                <li><a href="{% url 'exercise:dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'exercise:leaderboard' %}">Leaderboard</a></li>
+                <li><a href="{% url 'account_logout'%}?next=/">Logout</a></li>
+            </ul>
+        </nav>
+        {% else %} <!-- UN AUTHENTICATED USER-->
+        <!-- Header -->
+        <header id="header" class="alt">
+            <div class="logo"><a href="{% url 'exercise:home' %}">Work4It <span>by A-17</span></a></div>
+            <a href="#menu">Menu</a>
+        </header>
+
+    <!-- Nav -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="{% url 'exercise:home' %}">Home</a></li>
+                <li><a href="{% url 'exercise:video' %}">Instruction Videos</a></li>
+                <li><a href="{% provider_login_url 'google' %}?next=/dashboard">Login</a></li>
+                <li><a href="{% url 'exercise:leaderboard' %}">Leaderboard</a></li>
+            </ul>
+        </nav>
+        {% endif %}
+
+
+    <!-- Instruction Videos -->
+    <section id="One" class="wrapper style3">
+        <div class="inner">
+            <header class="align-center">
+                <p class="special">Wanna Learn New Sports?</p>
+                <h2>Instruction Videos</h2>
+            </header>
+         
+        </div>
+        
+    </section>
+
+    <section id="three" class="wrapper style4">
+        {% for i in obj %}
+        <center>{% video i.video 'small' %}</center>
+        {% endfor %}
+    </section>
+    
+
+    <!-- Footer -->
+        <footer id="footer">
+            <div class="copyright">
+                UVA CS3240: Group A-17 --- Published March 2021
+            </div>
+            <div class="copyright">
+                &copy; Untitled. All rights reserved.
+            </div>
+        </footer>
+
+    <!-- Scripts -->
+        <script src="../../static/exercise/assets/js/jquery.min.js"></script>
+        <script src="../../static/exercise/assets/js/jquery.scrollex.min.js"></script>
+        <script src="../../static/exercise/assets/js/skel.min.js"></script>
+        <script src="../../static/exercise/assets/js/util.js"></script>
+        <script src="../../static/exercise/assets/js/main.js"></script>
+
+    
+  </body>
+</html>
