@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views import View
 from .models import Workout
+from .models import Item
 from .forms import WorkoutForm
 from django.utils import timezone
 import datetime
@@ -13,6 +14,10 @@ import operator
 
 def index(request):
     return render(request, 'exercise/index.html')
+
+def video(request):
+    obj = Item.objects.all()
+    return render(request, 'exercise/video.html', {'obj': obj})
 
 def addWorkout(request):
     render(request, 'exercise/workout.html')
