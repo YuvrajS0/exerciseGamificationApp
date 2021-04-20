@@ -19,6 +19,7 @@ class Workout(models.Model):
     workout_end_time = models.TimeField(default = timezone.now)
     workout_description = models.TextField()
     workout_points = models.IntegerField(default=0)
+    workout_calories = models.IntegerField(default=0)
     # total_points = models.IntegerField(default = 0)
     def __str__(self):
         return self.workout_title

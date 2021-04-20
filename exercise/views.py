@@ -32,6 +32,7 @@ def addWorkout(request):
         workout.workout_start_time = request.POST.get('workout_start_time')
         workout.workout_end_time = request.POST.get('workout_end_time')
         workout.workout_description = request.POST.get('workout_description')
+        workout.workout_calories = request.POST.get('workout_calories')
         '''
         I know this way of calculating points is super wack, but honestly I was trying for
         3 hours to convert this into a form and nothing was working, so this should be good for now
@@ -39,9 +40,9 @@ def addWorkout(request):
         starttime = int((str(workout.workout_start_time))[0:2] + (str(workout.workout_start_time))[3:5])
         endtime = int((str(workout.workout_end_time))[0:2] + (str(workout.workout_end_time))[3:5])
         if(endtime < starttime):
-            workout.workout_points = starttime-endtime
+            workout.workout_points = int((starttime-endtime) * (0.01 * int(workout.workout_calories)))
         elif(endtime > starttime):
-            workout.workout_points = endtime-starttime
+            workout.workout_points = int((endtime-starttime) * (0.01 * int(workout.workout_calories)))
         else:
             workout.workout_points = 0 # they worked out for a full day??
         workout.save()
