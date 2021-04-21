@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views import View
 from .models import Workout
@@ -20,7 +20,7 @@ def video(request):
     return render(request, 'exercise/video.html', {'obj': obj})
 
 def addWorkout(request):
-    render(request, 'exercise/workout.html')
+    # render(request, 'exercise/workout.html')
     #context = {}
     if request.method == 'POST':
         #form = WorkoutForm(request.POST)
@@ -44,11 +44,19 @@ def addWorkout(request):
             workout.workout_points = endtime-starttime
         else:
             workout.workout_points = 0 # they worked out for a full day??
+        
+        workout_dict = Workout.objects.filter(user=request.user)
+        totalpoints = 0
+        for w in workout_dict:
+            totalpoints += w.workout_points
+        level = calcLevel(totalpoints)
         workout.save()
+        # return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict, 'totalpoints':totalpoints, 'level':level})
+        return redirect('exercise:dashboard')
     return render(request, 'exercise/workout.html')
 
 def dashboardView(request):
-    render(request, 'exercise/index.html')
+    # render(request, 'exercise/index.html')
     workout_dict = Workout.objects.filter(user=request.user)
     totalpoints = 0
     for w in workout_dict:
