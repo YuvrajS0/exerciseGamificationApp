@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views import View
 from .models import Workout
@@ -20,7 +20,7 @@ def video(request):
     return render(request, 'exercise/video.html', {'obj': obj})
 
 def addWorkout(request):
-    render(request, 'exercise/workout.html')
+    # render(request, 'exercise/workout.html')
     #context = {}
     if request.method == 'POST':
         #form = WorkoutForm(request.POST)
@@ -32,7 +32,6 @@ def addWorkout(request):
         workout.workout_start_time = request.POST.get('workout_start_time')
         workout.workout_end_time = request.POST.get('workout_end_time')
         workout.workout_description = request.POST.get('workout_description')
-        workout.workout_calories = request.POST.get('workout_calories')
         '''
         I know this way of calculating points is super wack, but honestly I was trying for
         3 hours to convert this into a form and nothing was working, so this should be good for now
@@ -40,16 +39,24 @@ def addWorkout(request):
         starttime = int((str(workout.workout_start_time))[0:2] + (str(workout.workout_start_time))[3:5])
         endtime = int((str(workout.workout_end_time))[0:2] + (str(workout.workout_end_time))[3:5])
         if(endtime < starttime):
-            workout.workout_points = int((starttime-endtime) * (0.01 * int(workout.workout_calories)))
+            workout.workout_points = starttime-endtime
         elif(endtime > starttime):
-            workout.workout_points = int((endtime-starttime) * (0.01 * int(workout.workout_calories)))
+            workout.workout_points = endtime-starttime
         else:
             workout.workout_points = 0 # they worked out for a full day??
+        
+        workout_dict = Workout.objects.filter(user=request.user)
+        totalpoints = 0
+        for w in workout_dict:
+            totalpoints += w.workout_points
+        level = calcLevel(totalpoints)
         workout.save()
+        # return render(request, 'exercise/dashboard.html', {'workout_dict': workout_dict, 'totalpoints':totalpoints, 'level':level})
+        return redirect('exercise:dashboard')
     return render(request, 'exercise/workout.html')
 
 def dashboardView(request):
-    render(request, 'exercise/index.html')
+    # render(request, 'exercise/index.html')
     workout_dict = Workout.objects.filter(user=request.user)
     totalpoints = 0
     for w in workout_dict:

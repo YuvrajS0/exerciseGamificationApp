@@ -82,11 +82,6 @@
 					<p>End Time</p>
 					<input type="time" name="workout_end_time" id="workout_end_time" value="" required/>
 				</div>
-				<!-- CALORIES -->
-				<div class="6u 12u$(xsmall)">
-					<p>Calories Burned</p>
-					<input type="number" name="workout_calories" id="workout_calories" value="" required/>
-				</div>
 				<!-- WORKOUT DESCRIPTION -->
 				<div class="12u$">
 					<textarea name="workout_description" id="workout_description" placeholder="Enter description" rows="6"></textarea required>
@@ -99,9 +94,7 @@
 				</div>
 			</div>
 		</form>
-		<form action="{% url 'exercise:dashboard' %}">
-			<input type="submit" value="View Workouts" />
-		</form>
+			<!-- <a href="{% url 'exercise:dashboard' %}">View Workouts</a> -->
 	   <div>
 	</section>
 		<!-- END OF FORM FOR WORKOUT INPUT -->
